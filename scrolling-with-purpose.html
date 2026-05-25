@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scrolling With Purpose – The Innovative Educator</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal:      #0097A7;
+    --teal-dark: #006D7A;
+    --teal-light:#E0F7FA;
+    --yellow:    #FFD600;
+    --yellow-dk: #C9A800;
+    --white:     #FFFFFF;
+    --dark:      #111827;
+    --mid:       #4B5563;
+    --light:     #9CA3AF;
+    --border:    #E5E7EB;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--white);
+    color: var(--dark);
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--teal);
+    padding: 0 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,151,167,0.3);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--white);
+    letter-spacing: -0.3px;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--yellow); }
+  .nav-tag {
+    background: var(--yellow);
+    color: var(--dark);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 20px;
+    text-decoration: none;
+  }
+  .nav-tag:hover { background: var(--yellow-dk); }
+
+  /* ── POST HERO ── */
+  .post-hero {
+    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+    padding: 64px 48px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .post-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+  }
+  .post-hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,97,107,0.55) 0%, rgba(0,40,50,0.65) 100%);
+  }
+  .post-hero-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    margin-bottom: 24px;
+    transition: color 0.2s;
+  }
+  .back-btn:hover { color: var(--yellow); }
+  .post-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .tag {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .tag-teal { background: var(--teal-light); color: var(--teal-dark); }
+  .tag-yellow { background: #FFF9C4; color: #8B7000; }
+  .tag-dark { background: #F3F4F6; color: var(--mid); }
+  .post-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 48px);
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .post-hero-meta { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .post-hero-meta .author { display: flex; align-items: center; gap: 10px; }
+  .post-hero-meta .author .name { font-size: 14px; font-weight: 600; color: white; }
+  .post-hero-meta .author .role { font-size: 12px; color: rgba(255,255,255,0.6); }
+  .author-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  /* ── POST CONTENT ── */
+  .post-content-wrap { max-width: 800px; margin: 0 auto; padding: 56px 48px; }
+
+  .post-intro {
+    font-size: 19px;
+    color: var(--mid);
+    line-height: 1.75;
+    margin-bottom: 40px;
+    font-weight: 300;
+    border-left: 4px solid var(--yellow);
+    padding-left: 24px;
+  }
+
+  .post-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--dark);
+    margin: 48px 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--teal-light);
+  }
+  .post-content p {
+    font-size: 16px;
+    color: #374151;
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .callout-box {
+    background: var(--teal-light);
+    border-left: 5px solid var(--teal);
+    border-radius: 0 12px 12px 0;
+    padding: 24px 28px;
+    margin: 32px 0;
+  }
+  .callout-box p {
+    font-size: 17px;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--teal-dark);
+    margin: 0;
+    line-height: 1.65;
+  }
+
+  /* References */
+  .references {
+    background: #F9FAFB;
+    border-radius: 12px;
+    padding: 32px;
+    margin-top: 48px;
+    border-top: 3px solid var(--teal);
+  }
+  .references h3 { font-size: 16px; font-weight: 700; color: var(--dark); margin-bottom: 20px; letter-spacing: 0.5px; }
+  .ref-item {
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.65;
+    padding: 10px 0 10px 20px;
+    border-bottom: 1px solid var(--border);
+    text-indent: -20px;
+    padding-left: 20px;
+  }
+  .ref-item:last-child { border-bottom: none; }
+  .ref-item a { color: var(--teal); text-decoration: none; }
+  .ref-item a:hover { text-decoration: underline; }
+
+  /* Comments CTA */
+  .comments-cta {
+    background: var(--yellow);
+    border-radius: 12px;
+    padding: 32px;
+    margin-top: 40px;
+    text-align: center;
+  }
+  .comments-cta h3 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--dark); margin-bottom: 10px; }
+  .comments-cta p { font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.6; }
+  .cta-btn {
+    background: var(--teal);
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 12px 28px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .cta-btn:hover { background: var(--teal-dark); }
+
+  /* Footer */
+  footer {
+    background: var(--teal);
+    padding: 48px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  footer h3 { font-family: 'Playfair Display', serif; font-size: 20px; color: white; margin-bottom: 4px; }
+  footer p { font-size: 13px; color: rgba(255,255,255,0.55); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { color: rgba(255,255,255,0.65); font-size: 13px; text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--yellow); }
+
+  /* ── GOOGLE TRANSLATE NAV STYLING ── */
+  #google_translate_element {
+    display: inline-flex;
+    align-items: center;
+  }
+  #google_translate_element .goog-te-gadget-simple {
+    background: rgba(255,255,255,0.12) !important;
+    border: 1px solid rgba(255,255,255,0.25) !important;
+    border-radius: 20px !important;
+    padding: 4px 12px !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: white !important;
+    cursor: pointer !important;
+  }
+  #google_translate_element .goog-te-gadget-simple:hover {
+    background: rgba(255,255,255,0.2) !important;
+  }
+  #google_translate_element .goog-te-gadget-simple span,
+  #google_translate_element .goog-te-gadget-simple a {
+    color: white !important;
+    text-decoration: none !important;
+    border: none !important;
+  }
+  #google_translate_element img { display: none !important; }
+  .goog-te-banner-frame { display: none !important; }
+  body { top: 0 !important; }
+
+  #restore-english-btn {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    background: var(--yellow);
+    color: var(--dark);
+    border: none;
+    border-radius: 20px;
+    padding: 5px 13px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  #restore-english-btn:hover { background: var(--yellow-dk); color: white; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 16px; height: auto; min-height: 56px; flex-wrap: wrap; gap: 8px; padding-top: 10px; padding-bottom: 10px; }
+    .post-hero { padding: 40px 16px 32px; }
+    .post-content-wrap { padding: 32px 16px; }
+    .post-intro { font-size: 16px; }
+    footer { padding: 32px 16px; flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://lindseystorm1.github.io/the-innovative-educator/" class="nav-logo">The <span>Innovative</span> Educator</a>
+  <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+    <div id="google_translate_element" style="display:none;"></div>
+    <select id="lang-select" onchange="switchLanguage(this.value)" aria-label="Select language"
+      style="background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.25); border-radius:20px; padding:5px 12px;
+             font-family:'Plus Jakarta Sans',sans-serif; font-size:12px; font-weight:600; color:white;
+             cursor:pointer; outline:none; appearance:none; -webkit-appearance:none;">
+      <option value="" style="color:#111;">🌐 Language</option>
+      <option value="es" style="color:#111;">Español</option>
+      <option value="fr" style="color:#111;">Français</option>
+      <option value="pt" style="color:#111;">Português</option>
+      <option value="zh-CN" style="color:#111;">中文</option>
+      <option value="ar" style="color:#111;">العربية</option>
+      <option value="hi" style="color:#111;">हिन्दी</option>
+      <option value="sw" style="color:#111;">Kiswahili</option>
+      <option value="vi" style="color:#111;">Tiếng Việt</option>
+      <option value="so" style="color:#111;">Soomaali</option>
+      <option value="tl" style="color:#111;">Filipino</option>
+      <option value="de" style="color:#111;">Deutsch</option>
+      <option value="ja" style="color:#111;">日本語</option>
+      <option value="ko" style="color:#111;">한국어</option>
+    </select>
+    <button id="restore-english-btn" onclick="restoreEnglish()" aria-label="Restore page to English">↩ English</button>
+    <a href="https://lindseystorm1.github.io/the-innovative-educator/" class="nav-tag">&#8592; Home</a>
+  </div>
+</nav>
+
+<!-- POST HERO -->
+<div class="post-hero">
+  <div class="post-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=1200&q=80');"></div>
+  <div class="post-hero-inner">
+    <a href="https://lindseystorm1.github.io/the-innovative-educator/" class="back-btn">&#8592; Back to Blog</a>
+    <div class="post-tags">
+      <span class="tag tag-teal">AI in Education</span>
+      <span class="tag tag-yellow">Social Media</span>
+      <span class="tag tag-dark">Professional Learning</span>
+    </div>
+    <h1>Scrolling With Purpose: Using TikTok to Learn about AI in the Elementary Classroom</h1>
+    <div class="post-hero-meta">
+      <div class="author">
+        <div class="author-avatar" style="background:#FFF9C4;">🌻</div>
+        <div>
+          <div class="name">Lindsey S.</div>
+          <div class="role">4th Grade Teacher · Ed.D. Candidate, Instructional Technology</div>
+          <div class="role" style="margin-top:4px;">May 2026 · 4 min read</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- POST CONTENT -->
+<div class="post-content-wrap">
+
+  <p class="post-intro">Social media sourcing is the intentional practice of searching and curating content from social media platforms for professional growth. For educators, this means going beyond passive scrolling to deliberately discover tools, strategies and ideas that transfer directly to classroom instruction. TikTok, one of the fastest-growing social media platforms in the world, has emerged as an unexpected but powerful space where educators are increasingly sharing and discovering classroom-ready ideas.</p>
+
+  <!-- Infographic embed -->
+  <div style="margin: 40px 0; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 28px rgba(0,0,0,0.10);">
+    <img src="https://lindseystorm1.github.io/the-innovative-educator/infographic.png"
+         alt="Scrolling With Purpose infographic showing TikTok search methods, network structure of three accounts, and a credibility filter framework"
+         style="width:100%; display:block;">
+    <p style="font-size:12px; color:var(--light); text-align:right; padding:8px 12px; font-style:italic; background:#F9FAFB; margin:0;">(Generated with user input in Anthropic, 2026)</p>
+  </div>
+
+  <div class="post-content">
+
+    <p>Social media platforms cultivate collaboration, communication and active participation in learning. This informal network leads to increased engagement and learning opportunities outside of professional channels (Alshalawi, 2022; García-Río et al., 2022).</p>
+
+    <p>The infographic above highlights a focused TikTok search on a specific topic: how elementary teachers are introducing artificial intelligence (AI) tools to students. Using hashtags like #AIinEducation, #AIinElementary and #AIschools, I identified three accounts that are adding to the conversation around AI in schools. @edutechwizard (Andrew Davies) shares student facing AI tools and practical ed tech strategies for grades K-12. @MagicSchool shows AI tools built specifically for K-12 teachers, and how to build skills on the student-facing platform. @briskteaching focuses on AI writing feedback, a real issue for educators trying to give meaningful and timely feedback to student writing.</p>
+
+    <p>In a recent survey of 101 K-12 teachers using TikTok as a professional learning tool, three out of four educators implemented TikTok ideas directly into the classroom (Nochumson, 2024). Here are a few ways to get the most out of TikTok as a professional learning tool: search a specific topic rather than browsing your for you page. Save and categorize your content intentionally so it can be used like a resource library. Also, use TikTok to inspire you and take action. Make a plan for how to take ideas saved in a video into your classroom.</p>
+
+    <div class="callout-box">
+      <p>"Teachers are learning from each other on TikTok every day. The key is knowing how to find that conversation intentionally."</p>
+    </div>
+
+    <div class="references">
+      <h3>References</h3>
+      <div class="ref-item">
+        Alshalawi, A. S. (2022). The influence of social media networks on learning performance and students' perceptions of their use in education: A literature review. <em>Contemporary Educational Technology, 14</em>(4), 1–20. <a href="https://doi.org/10.30935/cedtech/12164" target="_blank" rel="noopener">https://doi.org/10.30935/cedtech/12164</a>
+      </div>
+      <div class="ref-item">
+        García-Río, E., Baena-Luna, P., Palos-Sánchez, P., &amp; Aguayo-Camacho, M. (2022). Microblogging: An online resource to support education and training processes. <em>Campus Virtuales, 11</em>(2), 39–48. <a href="https://doi.org/10.54988/cv.2022.2.1013" target="_blank" rel="noopener">https://doi.org/10.54988/cv.2022.2.1013</a>
+      </div>
+      <div class="ref-item">
+        Nochumson, T. (2024). Exploring TikTok's role in K-12 education: A mixed-methods study of teachers' professional use. <em>Contemporary Issues in Technology and Teacher Education, 24</em>(2).
+      </div>
+    </div>
+
+  </div>
+
+  <div class="comments-cta">
+    <h3>Join the conversation</h3>
+    <p>Have you used TikTok or another social platform for professional learning? What accounts or hashtags have been most useful? Share below.</p>
+    <button class="cta-btn" onclick="window.location.href='mailto:lindseykstorm@gmail.com?subject=Comment%20on%3A%20Scrolling%20With%20Purpose&body=Post%3A%20Scrolling%20With%20Purpose%0A%0AYour%20comment%3A%0A'">Leave a Comment</button>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <h3>The Innovative Educator</h3>
+    <p>Technology · Teaching · Learning · &copy; 2026 Lindsey S.</p>
+  </div>
+  <div class="footer-links">
+    <a href="https://lindseystorm1.github.io/the-innovative-educator/">Home</a>
+  </div>
+</footer>
+
+<script>
+  function switchLanguage(lang) {
+    if (!lang) {
+      restoreEnglish();
+      return;
+    }
+    // Drive the hidden Google Translate widget directly — no page reload
+    var gtSelect = document.querySelector('.goog-te-combo');
+    if (gtSelect) {
+      gtSelect.value = lang;
+      gtSelect.dispatchEvent(new Event('change'));
+    } else {
+      // Widget not ready yet — retry after a short delay
+      setTimeout(function() { switchLanguage(lang); }, 600);
+    }
+  }
+
+  function restoreEnglish() {
+    var gtSelect = document.querySelector('.goog-te-combo');
+    if (gtSelect) {
+      gtSelect.value = 'en';
+      gtSelect.dispatchEvent(new Event('change'));
+    }
+    var customSelect = document.getElementById('lang-select');
+    if (customSelect) customSelect.value = '';
+    document.getElementById('restore-english-btn').style.display = 'none';
+  }
+
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'es,fr,pt,zh-CN,ar,hi,sw,vi,so,tl,de,ja,ko',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+      autoDisplay: false
+    }, 'google_translate_element');
+
+    // Show "↩ English" button whenever a translation is active
+    setInterval(function() {
+      var btn = document.getElementById('restore-english-btn');
+      var gtSelect = document.querySelector('.goog-te-combo');
+      var isTranslated = gtSelect && gtSelect.value && gtSelect.value !== 'en';
+      btn.style.display = isTranslated ? 'inline-flex' : 'none';
+    }, 500);
+  }
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>
