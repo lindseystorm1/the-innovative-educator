@@ -2009,32 +2009,39 @@
 <!-- END POST 4 -->
 
 <script>
-  function applyLanguage(lang) {
-    var gtSelect = document.querySelector('.goog-te-combo');
-    if (!gtSelect) return false;
-    gtSelect.value = lang;
-    gtSelect.dispatchEvent(new Event('change'));
-    gtSelect.dispatchEvent(new Event('input'));
-    return true;
-  }
-
-  function waitForGTAndApply(lang, attempts) {
-    attempts = attempts || 0;
-    if (attempts > 20) return; // give up after ~4s
-    if (!applyLanguage(lang)) {
-      setTimeout(function() { waitForGTAndApply(lang, attempts + 1); }, 200);
-    }
-  }
+  // Track the currently selected language so page switches can retranslate
+  var _currentLang = '';
 
   function switchLanguage(lang) {
     if (!lang) {
       restoreEnglish();
       return;
     }
-    // Try immediately; if the GT widget isn't in the DOM yet, poll for it
-    if (!applyLanguage(lang)) {
-      waitForGTAndApply(lang);
+    _currentLang = lang;
+    // Drive the hidden Google Translate widget directly — no page reload, no SPA reset
+    var gtSelect = document.querySelector('.goog-te-combo');
+    if (gtSelect) {
+      gtSelect.value = lang;
+      gtSelect.dispatchEvent(new Event('change'));
+    } else {
+      // Widget not ready yet — retry once after a short delay
+      setTimeout(function() { switchLanguage(lang); }, 600);
     }
+  }
+
+  // After switching to a new page, retranslate if a language is active.
+  // Google Translate only processes visible DOM — hidden sections need a fresh trigger.
+  function retranslateIfNeeded() {
+    if (!_currentLang) return;
+    var gtSelect = document.querySelector('.goog-te-combo');
+    if (!gtSelect) return;
+    // Briefly reset to English then reapply to force GT to scan the newly-visible content
+    gtSelect.value = 'en';
+    gtSelect.dispatchEvent(new Event('change'));
+    setTimeout(function() {
+      gtSelect.value = _currentLang;
+      gtSelect.dispatchEvent(new Event('change'));
+    }, 300);
   }
 
   function showPost() {
@@ -2045,6 +2052,7 @@
     document.getElementById('postPage4').classList.remove('active');
     document.getElementById('podcastPage').classList.remove('active');
     window.scrollTo(0, 0);
+    retranslateIfNeeded();
   }
   function showPost2() {
     document.getElementById('landingPage').classList.add('hidden');
@@ -2054,6 +2062,7 @@
     document.getElementById('postPage4').classList.remove('active');
     document.getElementById('podcastPage').classList.remove('active');
     window.scrollTo(0, 0);
+    retranslateIfNeeded();
   }
   function showPost4() {
     document.getElementById('landingPage').classList.add('hidden');
@@ -2063,6 +2072,7 @@
     document.getElementById('postPage3').classList.remove('active');
     document.getElementById('podcastPage').classList.remove('active');
     window.scrollTo(0, 0);
+    retranslateIfNeeded();
   }
   function showPost3() {
     document.getElementById('landingPage').classList.add('hidden');
@@ -2072,6 +2082,7 @@
     document.getElementById('postPage4').classList.remove('active');
     document.getElementById('podcastPage').classList.remove('active');
     window.scrollTo(0, 0);
+    retranslateIfNeeded();
   }
   function showPodcast() {
     document.getElementById('landingPage').classList.add('hidden');
@@ -2081,6 +2092,7 @@
     document.getElementById('postPage3').classList.remove('active');
     document.getElementById('postPage4').classList.remove('active');
     window.scrollTo(0, 0);
+    retranslateIfNeeded();
   }
   function showLanding() {
     document.getElementById('landingPage').classList.remove('hidden');
@@ -2091,6 +2103,7 @@
     document.getElementById('podcastPage').classList.remove('active');
     clearTagFilter();
     window.scrollTo(0, 0);
+    retranslateIfNeeded();
   }
 
   function filterByTag(tag, label) {
@@ -2145,12 +2158,12 @@
   }
 
   function restoreEnglish() {
+    _currentLang = ''; // clear so retranslateIfNeeded is a no-op going forward
     // Drive the GT widget back to English — no reload, no SPA reset
     var gtSelect = document.querySelector('.goog-te-combo');
     if (gtSelect) {
       gtSelect.value = 'en';
       gtSelect.dispatchEvent(new Event('change'));
-      gtSelect.dispatchEvent(new Event('input'));
     }
     // Reset the custom dropdown to the placeholder option
     var customSelect = document.getElementById('lang-select');
