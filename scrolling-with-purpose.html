@@ -238,35 +238,7 @@
   .footer-links a { color: rgba(255,255,255,0.65); font-size: 13px; text-decoration: none; transition: color 0.2s; }
   .footer-links a:hover { color: var(--yellow); }
 
-  /* ── GOOGLE TRANSLATE NAV STYLING ── */
-  #google_translate_element {
-    display: inline-flex;
-    align-items: center;
-  }
-  #google_translate_element .goog-te-gadget-simple {
-    background: rgba(255,255,255,0.12) !important;
-    border: 1px solid rgba(255,255,255,0.25) !important;
-    border-radius: 20px !important;
-    padding: 4px 12px !important;
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
-    font-size: 12px !important;
-    font-weight: 600 !important;
-    color: white !important;
-    cursor: pointer !important;
-  }
-  #google_translate_element .goog-te-gadget-simple:hover {
-    background: rgba(255,255,255,0.2) !important;
-  }
-  #google_translate_element .goog-te-gadget-simple span,
-  #google_translate_element .goog-te-gadget-simple a {
-    color: white !important;
-    text-decoration: none !important;
-    border: none !important;
-  }
-  #google_translate_element img { display: none !important; }
-  .goog-te-banner-frame { display: none !important; }
-  body { top: 0 !important; }
-
+  /* ── LANGUAGE SELECT STYLING ── */
   #restore-english-btn {
     display: none;
     align-items: center;
@@ -301,7 +273,6 @@
 <nav>
   <a href="https://lindseystorm1.github.io/the-innovative-educator/" class="nav-logo">The <span>Innovative</span> Educator</a>
   <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-    <div id="google_translate_element" style="display:none;"></div>
     <select id="lang-select" onchange="switchLanguage(this.value)" aria-label="Select language"
       style="background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.25); border-radius:20px; padding:5px 12px;
              font-family:'Plus Jakarta Sans',sans-serif; font-size:12px; font-weight:600; color:white;
@@ -410,51 +381,28 @@
 </footer>
 
 <script>
+  // Detect if we're currently viewing a Google-translated version
+  var isTranslated = window.location.hostname === 'lindseystorm1-github-io.translate.goog'
+                  || window.location.search.indexOf('_x_tr_sl=') !== -1;
+
+  if (isTranslated) {
+    // Show the "↩ English" button and hide the language selector
+    document.getElementById('restore-english-btn').style.display = 'inline-flex';
+  }
+
   function switchLanguage(lang) {
-    if (!lang) {
-      restoreEnglish();
-      return;
-    }
-    // Drive the hidden Google Translate widget directly — no page reload
-    var gtSelect = document.querySelector('.goog-te-combo');
-    if (gtSelect) {
-      gtSelect.value = lang;
-      gtSelect.dispatchEvent(new Event('change'));
-    } else {
-      // Widget not ready yet — retry after a short delay
-      setTimeout(function() { switchLanguage(lang); }, 600);
-    }
+    if (!lang) return;
+    // Build the Google Translate redirect URL for the current page
+    var pageUrl = 'https://lindseystorm1.github.io/the-innovative-educator/scrolling-with-purpose.html';
+    var translateUrl = 'https://lindseystorm1-github-io.translate.goog/the-innovative-educator/scrolling-with-purpose.html'
+      + '?_x_tr_sl=en&_x_tr_tl=' + encodeURIComponent(lang) + '&_x_tr_hl=en&_x_tr_pto=wapp';
+    window.location.href = translateUrl;
   }
 
   function restoreEnglish() {
-    var gtSelect = document.querySelector('.goog-te-combo');
-    if (gtSelect) {
-      gtSelect.value = 'en';
-      gtSelect.dispatchEvent(new Event('change'));
-    }
-    var customSelect = document.getElementById('lang-select');
-    if (customSelect) customSelect.value = '';
-    document.getElementById('restore-english-btn').style.display = 'none';
-  }
-
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement({
-      pageLanguage: 'en',
-      includedLanguages: 'es,fr,pt,zh-CN,ar,hi,sw,vi,so,tl,de,ja,ko',
-      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-      autoDisplay: false
-    }, 'google_translate_element');
-
-    // Show "↩ English" button whenever a translation is active
-    setInterval(function() {
-      var btn = document.getElementById('restore-english-btn');
-      var gtSelect = document.querySelector('.goog-te-combo');
-      var isTranslated = gtSelect && gtSelect.value && gtSelect.value !== 'en';
-      btn.style.display = isTranslated ? 'inline-flex' : 'none';
-    }, 500);
+    window.location.href = 'https://lindseystorm1.github.io/the-innovative-educator/scrolling-with-purpose.html';
   }
 </script>
-<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
 </html>
