@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Teacher's Guide to Exploring Augmented Reality and Virtual Reality Tools – The Innovative Educator</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal:      #0097A7;
+    --teal-dark: #006D7A;
+    --teal-light:#E0F7FA;
+    --yellow:    #FFD600;
+    --yellow-dk: #C9A800;
+    --white:     #FFFFFF;
+    --off:       #FAFFF9;
+    --dark:      #111827;
+    --mid:       #4B5563;
+    --light:     #9CA3AF;
+    --border:    #E5E7EB;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--white);
+    color: var(--dark);
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--teal);
+    padding: 0 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,151,167,0.3);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--white);
+    letter-spacing: -0.3px;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--yellow); }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--yellow); }
+  .nav-tag {
+    background: var(--yellow);
+    color: var(--dark);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 20px;
+    text-decoration: none;
+  }
+
+  /* POST HERO */
+  .post-hero {
+    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+    padding: 64px 48px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .post-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+  }
+  .post-hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.35) 100%);
+  }
+  .post-hero-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .post-hero .post-tags { margin-bottom: 20px; }
+  .post-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 48px);
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .post-hero-meta { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .post-hero-meta .author { display: flex; align-items: center; gap: 10px; }
+  .post-hero-meta .author .name { font-size: 14px; font-weight: 600; color: white; }
+  .post-hero-meta .author .role { font-size: 12px; color: rgba(255,255,255,0.6); }
+
+  /* POST CONTENT */
+  .post-content-wrap { max-width: 800px; margin: 0 auto; padding: 56px 48px; }
+
+  .post-intro {
+    font-size: 19px;
+    color: var(--mid);
+    line-height: 1.75;
+    margin-bottom: 40px;
+    font-weight: 300;
+    border-left: 4px solid var(--yellow);
+    padding-left: 24px;
+  }
+
+  .post-content p {
+    font-size: 16px;
+    color: #374151;
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .post-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--dark);
+    margin: 48px 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--teal-light);
+  }
+
+  /* Tags */
+  .post-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tag {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .tag-teal { background: var(--teal-light); color: var(--teal-dark); }
+  .tag-yellow { background: #FFF9C4; color: #8B7000; }
+  .tag-dark { background: #F3F4F6; color: var(--mid); }
+
+  /* Author avatar */
+  .author-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* Callout box */
+  .callout-box {
+    background: var(--teal-light);
+    border-left: 5px solid var(--teal);
+    border-radius: 0 12px 12px 0;
+    padding: 24px 28px;
+    margin: 32px 0;
+  }
+  .callout-box p {
+    font-size: 17px;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--teal-dark);
+    margin: 0;
+    line-height: 1.65;
+  }
+
+  /* References */
+  .references {
+    background: #F9FAFB;
+    border-radius: 12px;
+    padding: 32px;
+    margin-top: 48px;
+    border-top: 3px solid var(--teal);
+  }
+  .references h3 { font-size: 16px; font-weight: 700; color: var(--dark); margin-bottom: 20px; letter-spacing: 0.5px; }
+  .ref-item {
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.65;
+    padding: 10px 0 10px 20px;
+    border-bottom: 1px solid var(--border);
+    text-indent: -20px;
+    padding-left: 20px;
+  }
+  .ref-item:last-child { border-bottom: none; }
+  .ref-item a { color: var(--teal); text-decoration: none; }
+  .ref-item a:hover { text-decoration: underline; }
+
+  /* Comments CTA */
+  .comments-cta {
+    background: var(--yellow);
+    border-radius: 12px;
+    padding: 32px;
+    margin-top: 40px;
+    text-align: center;
+  }
+  .comments-cta h3 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--dark); margin-bottom: 20px; }
+  .cta-btn {
+    background: var(--teal);
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 12px 28px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .cta-btn:hover { background: var(--teal-dark); }
+
+  /* Footer */
+  footer {
+    background: var(--teal);
+    padding: 40px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  footer h3 { font-family: 'Playfair Display', serif; color: white; font-size: 18px; margin-bottom: 4px; }
+  footer p { font-size: 13px; color: rgba(255,255,255,0.55); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--yellow); }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    nav { padding: 0 16px; height: auto; flex-wrap: wrap; padding-top: 10px; padding-bottom: 10px; }
+    .nav-logo { font-size: 18px; flex: 1 1 auto; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .nav-links { display: none; }
+    .nav-tag { font-size: 11px; padding: 5px 10px; white-space: nowrap; flex-shrink: 0; }
+    .post-content-wrap { padding: 32px 16px; }
+    .post-hero { padding: 40px 16px 32px; }
+    footer { padding: 32px 16px; flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">The <span>Innovative</span> Educator</a>
+  <div class="nav-links"></div>
+  <div style="display:flex; align-items:center; gap:8px;">
+    <a href="index.html" class="nav-tag">Latest Post &#8594;</a>
+    <a href="index.html" style="display:inline-flex; align-items:center; justify-content:center; background:#FFD600; padding:6px 12px; border-radius:20px; text-decoration:none; transition:background 0.2s;" onmouseover="this.style.background='#e6c000'" onmouseout="this.style.background='#FFD600'" aria-label="Home">
+      <svg width="16" height="15" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="12,2 22,10 2,10" fill="none" stroke="#111827" stroke-width="1.6" stroke-linejoin="round"/>
+        <rect x="4" y="10" width="16" height="10" rx="0.5" fill="none" stroke="#111827" stroke-width="1.6" stroke-linejoin="round"/>
+        <rect x="15" y="4" width="3" height="5" fill="none" stroke="#111827" stroke-width="1.3"/>
+      </svg>
+    </a>
+  </div>
+</nav>
+
+<!-- POST HERO -->
+<div class="post-hero">
+  <div class="post-hero-bg" style="background-image:url('vrimage.png'); background-position: center 30%;"></div>
+  <div class="post-hero-inner">
+    <div class="post-tags">
+      <span class="tag tag-teal">Classroom Innovation</span>
+      <span class="tag tag-yellow">Instructional Technology</span>
+      <span class="tag tag-dark">AR/VR</span>
+    </div>
+    <h1>A Teacher's Guide to Exploring Augmented Reality and Virtual Reality Tools: An Interactive Learning Object</h1>
+    <div class="post-hero-meta">
+      <div class="author">
+        <div class="author-avatar" style="background:#FFF9C4; font-size:20px;">🌻</div>
+        <div>
+          <div class="name">Lindsey S.</div>
+          <div class="role">4th Grade Teacher · Ed.D. Candidate, Instructional Technology</div>
+          <div class="role" style="margin-top:4px;">June 2026 · 4 min read</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- POST CONTENT -->
+<div class="post-content-wrap">
+
+  <p class="post-intro">Most educators have heard of Augmented Reality (AR) or Virtual Reality (VR). Few have had the time and support, or hardware to implement successfully in the classroom.</p>
+
+  <div class="post-content">
+
+    <p>This post introduces an interactive learning tool that I created in Genially to support teachers as they explore AR and VR tools available through the BVSD Instructional Innovation Center.</p>
+
+    <h2>Learning Objective</h2>
+    <p>After using the learning object, teachers will be able to identify AR or VR tools for their grade level and describe how they plan to use them in the classroom.</p>
+
+    <h2>What is Inside</h2>
+    <p>The learning object is an interactive image of three visible zones within the Innovation center that focus on learning and applying AR and VR tools. Seven clickable pins are placed across the room. The left zone includes AR tools that are compatible with existing school devices like Merge Cube and Sky View. The center zone introduces immersive VR tools: Meta Quest, Prism VR and Nearpod VR. The right zone highlights student creation tools: Adobe Aero and Zapworks. Each pin includes a tool description, grade level/ classroom examples, an embedded video showcasing the tool, and a clickable link to learn more about ways to use the tool.</p>
+
+    <h2>Interactive, Accessible, Engaging and Reusable</h2>
+    <p>The learning object was designed around four principles. The learning object is interactive because it allows educators to click through the pins to learn more about each tool. Chen et al. (2022) found that students who engage actively with AR-based content demonstrate stronger learning outcomes compared to those receiving passive instruction. It is accessible through the clickable Genially link on any browser or device without a log in. Alt text is provided for images and links to support diverse needs. The learning tool is grounded in building teacher engagement through exploration. Each pin connects to classroom applications and offers more information about the tool through the website. Any educator, at any content level or grade can access the learning tool, making it reusable. Santos et al. (2022) identify reusability as a defining feature to determining effectiveness compared to a one-time instructional material.</p>
+
+    <h2>Why It Matters for BVSD</h2>
+    <p>Boulder Valley School District (BVSD) is navigating declining enrollment and growing pressure to show the value of the educational experience provided. Neighboring school districts like St. Vrain Valley built a dedicated teacher-facing space in 2018 that features an AR and VR skill space. BVSD currently does not have an equivalent space or structured professional development pathway for immersive technology. The learning object informs educators about the research based tools available in the Innovation Center. This tool is meant to accompany professional development about the Innovation Center and its purpose. Chen et al. (2022) and Riner et al. (2022) both documented meaningful gains in student learning when teachers used AR and VR with intention. This learning object supports building awareness of the technology available to support and enhance learning outcomes.</p>
+
+    <h2>Choosing the Tool</h2>
+    <p>I selected Genially because it creates interactive image designs simply without requiring coding experience and was easily sharable. The Genially link embeds into Google Sites and Canvas Courses. This learning tool is worth using and developing as technology evolves. Amemasor et al. (2025) found that the biggest shift happens for teachers when professional development is sustained and hands-on.</p>
+
+    <h2>Explore the Tool</h2>
+    <p>Click on any pin to learn more about each tool, see grade level examples, watch a demo and explore practical applications for classroom use.</p>
+
+    <div style="text-align:center; margin: 36px 0;">
+      <a href="https://view.genially.com/6a237d18ca511732560fafc9" target="_blank" rel="noopener"
+        style="display:inline-block; background:var(--teal); color:white; font-family:'Plus Jakarta Sans',sans-serif; font-size:15px; font-weight:700; padding:16px 36px; border-radius:10px; text-decoration:none; letter-spacing:0.3px; box-shadow:0 4px 16px rgba(0,151,167,0.25);">
+        &#127758; Open the Learning Object
+      </a>
+      <p style="font-size:13px; color:var(--light); margin-top:12px; font-style:italic;">Opens in a new tab · No login required · Works on any browser or device</p>
+    </div>
+
+    <div style="margin: 8px 0 40px; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 28px rgba(0,0,0,0.10);">
+      <img src="genially-preview.png" alt="Screenshot of the AR and VR Tools interactive learning object in Genially, showing the Innovation Center room with seven clickable pins across three zones" style="width:100%; display:block;">
+    </div>
+
+    <div class="references">
+      <h3>References</h3>
+      <div class="ref-item">
+        Amemasor, S. K., Oppong, S. O., Ghansah, B., Benuwa, B.-B., &amp; Essel, D. D. (2025). A systematic review on the impact of teacher professional development on digital instructional integration and teaching practices. <em>Frontiers in Education, 10</em>, Article 1541031. <a href="https://doi.org/10.3389/feduc.2025.1541031" target="_blank" rel="noopener">https://doi.org/10.3389/feduc.2025.1541031</a>
+      </div>
+      <div class="ref-item">
+        Chen, C.-C., Chen, H.-R., &amp; Wang, T.-Y. (2022). Creative situated augmented reality learning for astronomy curricula. <em>Educational Technology &amp; Society, 25</em>(2), 148–162. <a href="https://www.jstor.org/stable/48647041" target="_blank" rel="noopener">https://www.jstor.org/stable/48647041</a>
+      </div>
+      <div class="ref-item">
+        Riner, A., Hur, J. W., &amp; Kohlmeier, J. (2022). Virtual reality integration in social studies classroom: Impact on student knowledge, classroom engagement, and historical empathy development. <em>Journal of Educational Technology Systems, 51</em>, 146–168. <a href="https://doi.org/10.1177/00472395211072823" target="_blank" rel="noopener">https://doi.org/10.1177/00472395211072823</a>
+      </div>
+      <div class="ref-item">
+        Santos, A. I., Costa, A. C., Botelho, A. Z., Parente, M. I., Cascalho, J., Freitas, D., Behr, A., Rodrigues, A., &amp; Mendes, A. B. (2022). Learning objects in the educational context: The perspective of teachers in the Azores. <em>Education Sciences, 12</em>(5), 309. <a href="https://doi.org/10.3390/educsci12050309" target="_blank" rel="noopener">https://doi.org/10.3390/educsci12050309</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="comments-cta">
+    <h3>Join the conversation</h3>
+    <button class="cta-btn" onclick="window.location.href='mailto:lindseykstorm@gmail.com?subject=Comment%20on%3A%20A%20Teacher%27s%20Guide%20to%20Exploring%20AR%20and%20VR%20Tools&body=Post%3A%20A%20Teacher%27s%20Guide%20to%20Exploring%20AR%20and%20VR%20Tools%0A%0AYour%20comment%3A%0A'">Leave a Comment</button>
+  </div>
+
+</div>
+
+<footer>
+  <div>
+    <h3>The Innovative Educator</h3>
+    <p>Technology · Teaching · Learning · &copy; 2026 Lindsey S.</p>
+  </div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+  </div>
+</footer>
+
+</body>
+</html>
