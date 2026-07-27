@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Designing Groups for Success: Three Methods for Asynchronous Collaboration | The Innovative Educator</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal:      #0097A7;
+    --teal-dark: #006D7A;
+    --teal-light:#E0F7FA;
+    --yellow:    #FFD600;
+    --yellow-dk: #C9A800;
+    --white:     #FFFFFF;
+    --off:       #FAFFF9;
+    --dark:      #111827;
+    --mid:       #4B5563;
+    --light:     #9CA3AF;
+    --border:    #E5E7EB;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--white);
+    color: var(--dark);
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--teal);
+    padding: 0 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,151,167,0.3);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--white);
+    letter-spacing: -0.3px;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--yellow); }
+  .nav-tag {
+    background: var(--yellow);
+    color: var(--dark);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 20px;
+    text-decoration: none;
+  }
+
+  /* ── POST HERO ── */
+  .post-hero {
+    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+    padding: 64px 48px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .post-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+  }
+  .post-hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,97,107,0.55) 0%, rgba(0,40,50,0.65) 100%);
+  }
+  .post-hero-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .post-hero .post-tags { margin-bottom: 20px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .tag-teal { background: var(--teal-light); color: var(--teal-dark); }
+  .tag-yellow { background: #FFF9C4; color: #8B7000; }
+  .tag-dark { background: #F3F4F6; color: var(--mid); }
+
+  .post-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 48px);
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .post-hero-meta { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .post-hero-meta .author { display: flex; align-items: center; gap: 10px; }
+  .author-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: #000d1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .post-hero-meta .author .name { font-size: 14px; font-weight: 600; color: white; }
+  .post-hero-meta .author .role { font-size: 12px; color: rgba(255,255,255,0.6); }
+
+  .post-content-wrap { max-width: 800px; margin: 0 auto; padding: 56px 48px; }
+
+  .post-intro {
+    font-size: 19px;
+    color: var(--mid);
+    line-height: 1.75;
+    margin-bottom: 40px;
+    font-weight: 300;
+    border-left: 4px solid var(--yellow);
+    padding-left: 24px;
+  }
+
+  .post-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--dark);
+    margin: 48px 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--teal-light);
+  }
+  .post-content h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--teal-dark);
+    margin: 28px 0 10px;
+  }
+  .post-content p {
+    font-size: 16px;
+    color: #374151;
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  /* Image */
+  .inline-image {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 32px 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  .image-caption { font-size: 12px; color: var(--light); text-align: center; padding: 10px; font-style: italic; }
+
+  /* References */
+  .references {
+    background: #F9FAFB;
+    border-radius: 12px;
+    padding: 32px;
+    margin-top: 48px;
+    border-top: 3px solid var(--teal);
+  }
+  .references h3 { font-size: 16px; font-weight: 700; color: var(--dark); margin-bottom: 20px; letter-spacing: 0.5px; }
+  .ref-item {
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.65;
+    padding: 10px 0 10px 20px;
+    border-bottom: 1px solid var(--border);
+    text-indent: -20px;
+    padding-left: 20px;
+  }
+  .ref-item:last-child { border-bottom: none; }
+  .ref-item a { color: var(--teal); text-decoration: none; }
+  .ref-item a:hover { text-decoration: underline; }
+
+  /* Comments CTA */
+  .comments-cta {
+    background: var(--yellow);
+    border-radius: 12px;
+    padding: 32px;
+    margin-top: 40px;
+    text-align: center;
+  }
+  .comments-cta h3 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--dark); margin-bottom: 10px; }
+  .comments-cta p { font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.6; }
+  .cta-btn {
+    background: var(--teal);
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 12px 28px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .cta-btn:hover { background: var(--teal-dark); }
+
+  /* Footer */
+  footer {
+    background: var(--teal);
+    padding: 48px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  footer h3 { font-family: 'Playfair Display', serif; font-size: 20px; color: white; margin-bottom: 4px; }
+  footer p { font-size: 13px; color: rgba(255,255,255,0.55); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { color: rgba(255,255,255,0.65); font-size: 13px; text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--yellow); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 16px; }
+    .post-hero { padding: 40px 16px 32px; }
+    .post-content-wrap { padding: 32px 16px; }
+    footer { padding: 32px 16px; flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">The <span>Innovative</span> Educator</a>
+  <div style="display:flex; align-items:center; gap:8px;">
+    <a href="designing-groups-for-success.html" class="nav-tag">Latest Post &#8594;</a>
+    <a href="index.html" style="display:inline-flex; align-items:center; justify-content:center; background:#FFD600; padding:6px 12px; border-radius:20px; text-decoration:none; transition:background 0.2s;" onmouseover="this.style.background='#e6c000'" onmouseout="this.style.background='#FFD600'" aria-label="Home">
+      <svg width="16" height="15" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="12,2 22,10 2,10" fill="none" stroke="#111827" stroke-width="1.6" stroke-linejoin="round"/>
+        <rect x="4" y="10" width="16" height="10" rx="0.5" fill="none" stroke="#111827" stroke-width="1.6" stroke-linejoin="round"/>
+        <rect x="15" y="4" width="3" height="5" fill="none" stroke="#111827" stroke-width="1.3"/>
+      </svg>
+    </a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════ BLOG POST ═══════════════════════════════════ -->
+<div class="post-page">
+
+  <div class="post-hero">
+    <div class="post-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80');"></div>
+    <div class="post-hero-inner">
+      <div class="post-tags">
+        <span class="tag tag-teal">Professional Learning</span>
+        <span class="tag tag-yellow">Instructional Design</span>
+        <span class="tag tag-dark">Ed Tech</span>
+      </div>
+      <h1>Designing Groups for Success: Three Methods for Asynchronous Collaboration</h1>
+      <div class="post-hero-meta">
+        <div class="author">
+          <div class="author-avatar" style="background:#FFF9C4; font-size:20px;">🌻</div>
+          <div>
+            <div class="name">Lindsey S.</div>
+            <div class="role">4th Grade Teacher · Ed.D. Candidate, Instructional Technology</div>
+            <div class="role" style="margin-top:4px;">July 2026 · 3 min read</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="post-content-wrap">
+
+    <p class="post-intro">Just because a Google Doc is shared across multiple contributors or people are in the same online class does not mean collaboration is happening. When my fourth grade classroom lacks clear expectations during a shared project, or group Google Slides presentation, it is more difficult for students to build a shared vision. Poor design and lack of clarity in any learning environments can lead to disengagement and heightened emotions. In a recent study, researchers found that elementary students' social presence predicted how positively they experienced online learning (Lee et al., 2026). When designed with purpose, collaboration pushes learners past surface-level engagement into deeper thinking that builds social skills, communication and accountability.</p>
+
+    <div class="post-content">
+
+      <p>Fostering community in learning environments takes intention and forethought for learners of all ages. Shahvar and Tang (2022) found this same pattern of social presence supporting collaboration in graduate students. Social presence is not a developmental skill that matures with age, it is a foundational layer of the learning environment itself. In my doctoral course work, discussion boards are structured to help learners develop social presence, a pillar of the Community of Inquiry framework, through exchange with people across professions, skills and perspectives. District professional development could borrow this same model, offering a structured ongoing discussion space after the session ends for educators to continue the conversation and learning.</p>
+
+      <p>Here are three methods for building that structure into asynchronous group formation.</p>
+
+      <div class="inline-image">
+        <img src="asynchronous-collaboration-chart.png" alt="Chart showing three methods for establishing groups in an asynchronous environment: pre-formation strengths survey, capped groups with expertise-based roles, and shared workspace with structured check-ins, each with benefits, group details, and potential drawbacks" style="width:100%; display:block;">
+        <div class="image-caption">(OpenAI, 2026)</div>
+      </div>
+
+      <h3>1. Pre-Formation Strengths Survey</h3>
+      <p>Before group work begins, participants take a short survey about their interests, strengths, and working style. Cheng et al. (2021) found that individuals benefited from the facilitator taking time to learn about the personality and preferences of each person before groups were determined. After analyzing responses, four to six groups with four to five people are created. Groups built with a strength-centered focus encounter less tension early on.</p>
+
+      <h3>2. Capped Groups With Expertise-Based Roles</h3>
+      <p>Two key factors that support group collaboration are effective group size and role clarity. Shahvar and Tang (2022) found that the most advantageous group size is three to five people, while Cheng et al. (2021) found that roles based on expertise or skills led to higher efficiency. When roles such as organizer, communicator and researcher are tailored to a person's strengths, individuals stay accountable and engaged in the work. Role ambiguity can lead to unclear communication and loss of productivity.</p>
+
+      <h3>3. Shared Workspace With Structured Check-Ins</h3>
+      <p>Grothaus (2022) found that students who operated in shared collaborative spaces concurrently reported a stronger social presence than those who relied on sequential communication with their group. Seeing each other's edits in real time gave groups a stronger connection than other groups who worked individually and then merged their contributions together at the end. As a support, check-ins with an instructor or group leader can help groups of all sizes stay on track with goals and direction.</p>
+
+      <p>With each method, the facilitator's role is integral to the success of each group, requiring an investment of time and consistent management. Surveys take time, fixed roles can become unproductive requiring intervention from the facilitator, and a built in feedback-cycle only works with active participation from the leader.</p>
+
+      <div class="references">
+        <h3>References</h3>
+        <div class="ref-item">
+          Cheng, F.-F., Wu, C.-S., &amp; Su, P.-C. (2021). The impact of collaborative learning and personality on satisfaction in innovative teaching context. <em>Frontiers in Psychology, 12</em>, Article 713497. <a href="https://doi.org/10.3389/fpsyg.2021.713497" target="_blank" rel="noopener">https://doi.org/10.3389/fpsyg.2021.713497</a>
+        </div>
+        <div class="ref-item">
+          Grothaus, C. (2022). Collaborative online learning across cultures: The role of teaching and social presence. <em>Qualitative Research in Education, 11</em>(3), 298–326. <a href="https://doi.org/10.17583/qre.10474" target="_blank" rel="noopener">https://doi.org/10.17583/qre.10474</a>
+        </div>
+        <div class="ref-item">
+          Lee, S., Hwang, H., Shin, Y., &amp; Kendeou, P. (2026). Teaching presence, social presence and digital literacy in predicting online learning experience in elementary students. <em>British Journal of Educational Technology, 57</em>, 185–203. <a href="https://doi.org/10.1111/bjet.70004" target="_blank" rel="noopener">https://doi.org/10.1111/bjet.70004</a>
+        </div>
+        <div class="ref-item">
+          Shahvar, S., &amp; Tang, R. (2022). Toward a conceptual model of online collaborative learning: A multi-phased investigation into experiences and perceptions of online MLIS students. <em>Journal of Education for Library and Information Science, 63</em>(4), 436–460. <a href="https://doi.org/10.3138/jelis-2021-0039" target="_blank" rel="noopener">https://doi.org/10.3138/jelis-2021-0039</a>
+        </div>
+      </div>
+
+    </div><!-- end post-content -->
+
+  </div><!-- end post-content-wrap -->
+
+  <footer>
+    <div>
+      <h3>The Innovative Educator</h3>
+      <p>Technology · Teaching · Learning · &copy; 2026 Lindsey S.</p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>
