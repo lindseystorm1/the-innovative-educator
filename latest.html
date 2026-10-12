@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Latest Post | The Innovative Educator</title>
+<meta name="robots" content="noindex">
+<style>
+  body { font-family: 'Plus Jakarta Sans', Arial, sans-serif; background: #FFFFFF; color: #4B5563; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 16px; text-align: center; }
+  a { color: #0097A7; }
+</style>
+</head>
+<body>
+<p>Opening the latest post&hellip; <a href="index.html">Go to the home page</a> if nothing happens.</p>
+<script>
+  // Finds the newest post card on the home page (the first card listed)
+  // and sends the reader to it. Falls back to the home page if anything fails.
+  fetch('index.html', { cache: 'no-store' })
+    .then(function (r) { return r.text(); })
+    .then(function (html) {
+      var doc = new DOMParser().parseFromString(html, 'text/html');
+      var link = doc.querySelector('.post-featured .read-more');
+      var href = link ? link.getAttribute('href') : null;
+      window.location.replace(href && href.indexOf('latest.html') === -1 ? href : 'index.html');
+    })
+    .catch(function () { window.location.replace('index.html'); });
+</script>
+</body>
+</html>
